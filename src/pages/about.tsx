@@ -1,15 +1,6 @@
-import Head from "next/head";
-import Image from "next/image";
 import React from "react";
 import { Box, Typography, Button } from "@mui/material";
 import { styled } from "@mui/material/styles";
-import { useRecoilValue, useSetRecoilState } from "recoil";
-import {
-  userEmailSelected,
-  userRoleSelected,
-} from "@/store/selectors/userEmailAndRole";
-import { isUserLoadingSelected } from "@/store/selectors/isUserLoading";
-import { useRouter } from "next/router";
 
 const HeroSection = styled(Box)(({ theme }) => ({
   background: `linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url(${"https://www.hdwallpapers.in/download/horses_are_running_on_hills_with_background_of_clouds_and_sunbeam_hd_horse-1920x1080.jpg"}) center/cover`,
@@ -44,35 +35,16 @@ const StyledButton = styled(Button)({
   },
 });
 
-const Hero = ({ user }: any) => {
-  const router = useRouter();
-  //const { user } = props.user;
+const Hero = () => {
   return (
     <HeroSection>
       <Box maxWidth="800px" margin="0 auto">
-        <TitleTypography variant="h3">Welcome to Horsera</TitleTypography>
+        <TitleTypography variant="h3">
+          Welcome to Horsera
+        </TitleTypography>
         <SubtitleTypography variant="h5">
           Start Your Equestrian Journey Today
         </SubtitleTypography>
-        {user ? (
-          <StyledButton
-            variant="contained"
-            onClick={() => {
-              router.push("/browsecourses");
-            }}
-          >
-            Browse Courses
-          </StyledButton>
-        ) : (
-          <StyledButton
-            variant="contained"
-            onClick={() => {
-              //add navigation here
-            }}
-          >
-            Join Now!
-          </StyledButton>
-        )}
       </Box>
     </HeroSection>
   );
@@ -125,51 +97,19 @@ const CTAStyledButton = styled(Button)({
   },
 });
 
-const CTA = ({ user }: any) => {
-  const router = useRouter();
+const CTA = () => {
   return (
     <CTASection>
       <TextContent>
         <CTATitleTypography variant="h4">
-          Skills you need today for a successful tomorrow
+          Discover Horsemanship Online
         </CTATitleTypography>
         <CTASubtitleTypography variant="body1">
-          Bring your new horse riding career one step closer by getting a
-          professional certificate. With our 100% online school and unique
-          teaching method, you'll have the keys to your own success.
+          Embark on an immersive journey into the world of horsemanship through
+          our expert-led online courses, meticulously designed for both novices
+          and seasoned enthusiasts. Uncover the secrets of effective horse care,
+          training, and communication in a convenient and accessible format.
         </CTASubtitleTypography>
-        {user ? (
-          <CTAStyledButton
-            variant="contained"
-            size="large"
-            onClick={() => {
-              router.push("/browsecourses");
-            }}
-          >
-            Start Learning Now!
-          </CTAStyledButton>
-        ) : (
-          <>
-            <CTAStyledButton
-              variant="contained"
-              size="large"
-              onClick={() => {
-                //add navigation here
-              }}
-            >
-              Log In
-            </CTAStyledButton>
-            <CTAStyledButton
-              variant="contained"
-              size="large"
-              onClick={() => {
-                //add navigation here
-              }}
-            >
-              Sign Up
-            </CTAStyledButton>
-          </>
-        )}
       </TextContent>
       <ImageContainer>
         <img
@@ -194,31 +134,27 @@ const CTA2 = () => {
       </ImageContainer>
       <TextContent>
         <CTATitleTypography variant="h4">
-          UNLOCK THE ART OF HORSEMANSHIP
+          Master More Than Riding
         </CTATitleTypography>
         <CTASubtitleTypography variant="body1">
-          Discover the art of horsemanship with our immersive and hands-on
-          courses. Whether you're a beginner or an experienced rider, our expert
-          instructors will guide you through the intricacies of riding,
-          training, and bonding with these majestic creatures. Enroll now to
-          unleash your potential and embark on a rewarding journey with horses.
+          Acquire vital qualities of patience, empathy, and effective
+          communication while honing riding and horse care skills on our
+          flexible online platform. Gain the expertise to excel in equestrian
+          pursuits and connect with the art of horsemanship today.
         </CTASubtitleTypography>
       </TextContent>
     </CTASection>
   );
 };
 
-function Home() {
-  const userLoading = useRecoilValue(isUserLoadingSelected);
-  const user = useRecoilValue(userEmailSelected);
-
+function About() {
   return (
     <div>
-      <Hero user={user} />
-      <CTA user={user} />
+      <Hero />
+      <CTA />
       <CTA2 />
     </div>
   );
 }
 
-export default Home;
+export default About;

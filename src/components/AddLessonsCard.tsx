@@ -16,11 +16,7 @@ export default function AddLessonCard(props: any) {
   const handleAddLesson = () => {
     axios({
       method: "post",
-      url: `${BACKEND_URL}:${PORT}/admin/courses/${props.course.course._id}`,
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: localStorage.getItem("token"),
-      },
+      url: `${BACKEND_URL}:${PORT}/api/admin/courses/${props.course.course._id}`,
       data: { title, description, lessonLink, courseId },
     })
       .then((res) => {

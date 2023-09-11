@@ -8,7 +8,6 @@ import {
   CardContent,
   Modal,
 } from "@mui/material";
-import axios from "axios";
 import { BACKEND_URL, PORT } from "../constants/index";
 import { ILessons } from "@/store/atoms/courseState";
 import YouTube from "react-youtube";
@@ -63,12 +62,12 @@ export default function Lessons(props: any) {
     res.json().then(getLessonCallback2);
   }
   const getLessons = () => {
-    fetch(`${BACKEND_URL}:${PORT}/admin/courses/${props.course.course._id}`, {
-      method: "get",
-      headers: {
-        Authorization: localStorage.getItem("token") || "",
-      },
-    }).then(getLessonCallback1);
+    fetch(
+      `${BACKEND_URL}:${PORT}/api/admin/courses/${props.course.course._id}`,
+      {
+        method: "GET",
+      }
+    ).then(getLessonCallback1);
   };
   const handleUpdateLesson = () => {
     window.location.reload();
@@ -112,12 +111,12 @@ export default function Lessons(props: any) {
                 function callback1(res: any) {
                   res.json().then(callback2);
                 }
-                fetch(`${BACKEND_URL}:${PORT}/admin/lessons/${lesson._id}`, {
-                  method: "DELETE",
-                  headers: {
-                    Authorization: localStorage.getItem("token") || "",
-                  },
-                }).then(callback1);
+                fetch(
+                  `${BACKEND_URL}:${PORT}/api/admin/lessons/${lesson._id}`,
+                  {
+                    method: "DELETE",
+                  }
+                ).then(callback1);
               }}
             >
               Delete

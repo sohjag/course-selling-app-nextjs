@@ -10,22 +10,17 @@ const lessonMarkingHandler = async (
 ) => {
   if (req.method === "PUT") {
     try {
-      console.log("inside try block....");
       const id = req.query.courseId || "";
-      console.log("retrieved id....", id);
       const courseId = new mongoose.Types.ObjectId(
         req.query.courseId?.toString() || ""
       );
       const lessonId = new mongoose.Types.ObjectId(
         req.query.lessonId?.toString() || ""
       );
-      console.log("retrieved course and lesson id....", courseId, lessonId);
 
       let token = req.cookies.token;
-      console.log("retrieved token....", token);
 
       let userAndRole = getUserAndRole(token);
-      console.log("retrieved userandrole....", userAndRole);
 
       let user;
       await ensureDbConnected();

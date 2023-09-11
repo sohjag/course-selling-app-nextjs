@@ -25,11 +25,8 @@ function Course() {
   }
 
   useEffect(() => {
-    fetch(`${BACKEND_URL}:${PORT}/admin/courses/${courseId}`, {
+    fetch(`${BACKEND_URL}:${PORT}/api/admin/courses/${courseId}`, {
       method: "GET",
-      headers: {
-        Authorization: localStorage.getItem("token") || "",
-      },
     }).then(callback1);
   }, [courseId]);
 

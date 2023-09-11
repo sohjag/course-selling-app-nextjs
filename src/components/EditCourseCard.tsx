@@ -1,18 +1,10 @@
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
-import {
-  Button,
-  Card,
-  TextField,
-  Typography,
-  CardContent,
-} from "@mui/material";
+import { Button, Card, TextField, Typography } from "@mui/material";
 import axios from "axios";
 import { BACKEND_URL, PORT } from "../constants/index";
 
 export default function EditCourseCard(props: any) {
-  //   console.log("rendering edit course card...");
-  //   console.log(props.course.course.title);
   const router = useRouter();
   let { courseId } = router.query;
 
@@ -84,12 +76,8 @@ export default function EditCourseCard(props: any) {
             type="submit"
             onClick={() => {
               axios({
-                method: "put",
-                url: `${BACKEND_URL}:${PORT}/admin/courses/${courseId}`,
-                headers: {
-                  "Content-Type": "application/json",
-                  Authorization: localStorage.getItem("token"),
-                },
+                method: "PUT",
+                url: `${BACKEND_URL}:${PORT}/api/admin/courses/${courseId}`,
                 data: { title, description, price, imageLink },
               })
                 .then((res) => {

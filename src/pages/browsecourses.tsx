@@ -23,11 +23,10 @@ function BrowseCourses() {
 
   const initCourses = async () => {
     try {
-      const response = await axios.get(`${BACKEND_URL}:${PORT}/browsecourses`, {
-        headers: {
-          Authorization: localStorage.getItem("token"),
-        },
-      });
+      const response = await axios.get(
+        `${BACKEND_URL}:${PORT}/api/browsecourses`,
+        {}
+      );
       if (response.data.courses) {
         setCourses({
           isLoading: false,
@@ -72,11 +71,8 @@ function RenderCourse(props: any) {
 
   useEffect(() => {
     // Fetch the purchase status of the course on component mount
-    fetch(`${BACKEND_URL}:${PORT}/users/courses/${course._id}/check-purchase`, {
+    fetch(`${BACKEND_URL}:${PORT}/api/users/courses/${course._id}`, {
       method: "GET",
-      headers: {
-        Authorization: localStorage.getItem("token") || "",
-      },
     })
       .then((res) => res.json())
       .then((data) => {
@@ -88,11 +84,8 @@ function RenderCourse(props: any) {
   }, [course._id]);
 
   const handlePurchaseCourse = () => {
-    fetch(`${BACKEND_URL}:${PORT}/users/courses/${props.course._id}`, {
+    fetch(`${BACKEND_URL}:${PORT}/api/users/courses/${props.course._id}`, {
       method: "POST",
-      headers: {
-        Authorization: localStorage.getItem("token") || "",
-      },
     })
       .then((res) => {
         if (res.ok) {
@@ -173,7 +166,6 @@ function RenderCourse(props: any) {
               variant="contained"
               onClick={() => {
                 function callback2(data: any) {
-                  //alert("lesson deleted successfully");
                   setCourseDetailState((prevState) => ({
                     ...prevState,
                     course:
@@ -186,12 +178,9 @@ function RenderCourse(props: any) {
                   res.json().then(callback2);
                 }
                 fetch(
-                  `${BACKEND_URL}:${PORT}/admin/courses/${props.course._id}`,
+                  `${BACKEND_URL}:${PORT}/api/admin/courses/${props.course._id}`,
                   {
                     method: "DELETE",
-                    headers: {
-                      Authorization: localStorage.getItem("token") || "",
-                    },
                   }
                 ).then(callback1);
               }}
@@ -222,7 +211,7 @@ function RenderCourse(props: any) {
 export default BrowseCourses;
 
 // export async function getServerSideProps() {
-//   const response = await axios.get(`${BACKEND_URL}:${PORT}/browsecourses`, {
+//   const response = await axios.get(`${BACKEND_URL}:${PORT}/api/browsecourses`, {
 //     headers: {
 //       Authorization: localStorage.getItem("token"),
 //     },

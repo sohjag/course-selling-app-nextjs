@@ -10,13 +10,12 @@ import { useRouter } from "next/router";
 import { useSetRecoilState } from "recoil";
 import { userDetail } from "@/store/atoms/user";
 
-
 function Login() {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const setUser = useSetRecoilState(userDetail);
 
-  const router = useRouter()
+  const router = useRouter();
 
   return (
     <div
@@ -62,7 +61,7 @@ function Login() {
             onClick={() => {
               axios({
                 method: "post",
-                url: `${BACKEND_URL}:${PORT}/users/login`,
+                url: `${BACKEND_URL}:${PORT}/api/userlogin`,
                 headers: {
                   "Content-Type": "application/json",
                 },
@@ -74,16 +73,12 @@ function Login() {
               })
                 .then((response) => {
                   if (response.status == 200) {
-                    localStorage.setItem(
-                      "token",
-                      "Bearer " + response.data.token
-                    );
                     setUser({
-                        userEmail: username,
-                        isLoading: false,
-                        role:"user"
-                    })
-                    router.push("/")
+                      userEmail: username,
+                      isLoading: false,
+                      role: "user",
+                    });
+                    router.push("/");
                     //navigate("/");
                   } else {
                     alert("Incorect email or password");

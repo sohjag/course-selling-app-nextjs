@@ -13,8 +13,8 @@ import { useSetRecoilState } from "recoil";
 function AdminLogin() {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
-  const setUser = useSetRecoilState(userDetail)
-  const router = useRouter()
+  const setUser = useSetRecoilState(userDetail);
+  const router = useRouter();
 
   return (
     <div
@@ -60,7 +60,7 @@ function AdminLogin() {
             onClick={() => {
               axios({
                 method: "post",
-                url: `${BACKEND_URL}:${PORT}/admin/login`,
+                url: `${BACKEND_URL}:${PORT}/api/adminlogin`,
                 headers: {
                   "Content-Type": "application/json",
                 },
@@ -72,16 +72,12 @@ function AdminLogin() {
               })
                 .then((response) => {
                   if (response.status == 200) {
-                    localStorage.setItem(
-                      "token",
-                      "Bearer " + response.data.token
-                    );
                     setUser({
-                        isLoading:false,
-                        userEmail:username,
-                        role:"admin"
-                    })
-                    router.push("/")
+                      isLoading: false,
+                      userEmail: username,
+                      role: "admin",
+                    });
+                    router.push("/");
                   } else {
                     alert("Incorect email or password");
                     console.error(response);

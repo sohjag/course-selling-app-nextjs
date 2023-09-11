@@ -1,13 +1,5 @@
-import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
-import {
-  Button,
-  Card,
-  TextField,
-  Typography,
-  CardContent,
-} from "@mui/material";
-import axios from "axios";
+import { Button, Card, Typography } from "@mui/material";
 import { BACKEND_URL, PORT } from "../constants/index";
 
 export default function CourseCard(props: any) {
@@ -16,15 +8,9 @@ export default function CourseCard(props: any) {
 
   useEffect(() => {
     // Fetch the purchase status of the course on component mount
-    fetch(
-      `${BACKEND_URL}:${PORT}/users/courses/${course.course._id}/check-purchase`,
-      {
-        method: "GET",
-        headers: {
-          Authorization: localStorage.getItem("token") || "",
-        },
-      }
-    )
+    fetch(`${BACKEND_URL}:${PORT}/api/users/courses/${course.course._id}`, {
+      method: "GET",
+    })
       .then((res) => res.json())
       .then((data) => {
         setIsCoursePurchased(data.purchased);
@@ -35,12 +21,12 @@ export default function CourseCard(props: any) {
   }, []);
 
   const handlePurchase = () => {
-    fetch(`${BACKEND_URL}:${PORT}/users/courses/${props.course.course._id}`, {
-      method: "POST",
-      headers: {
-        Authorization: localStorage.getItem("token") || "",
-      },
-    })
+    fetch(
+      `${BACKEND_URL}:${PORT}/api/users/courses/${props.course.course._id}`,
+      {
+        method: "POST",
+      }
+    )
       .then((res) => {
         if (res.ok) {
           setIsCoursePurchased(true); // Course purchased successfully, update the state

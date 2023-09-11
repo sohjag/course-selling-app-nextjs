@@ -28,12 +28,7 @@ export default function CourseLessons(props: any) {
     async function fetchCompletedLessons() {
       try {
         const response = await axios.get(
-          `${BACKEND_URL}:${PORT}/users/courses/${course._id}`,
-          {
-            headers: {
-              Authorization: localStorage.getItem("token"),
-            },
-          }
+          `${BACKEND_URL}:${PORT}/api/users/courses/${course._id}/completedLessons`
         );
         const completedLessonsData = response.data;
         const completedLessonIds = completedLessonsData.map(
@@ -56,8 +51,6 @@ export default function CourseLessons(props: any) {
       return new Set();
     });
   }, [completedLessons]);
-  // console.log("selected lesson is...");
-  // console.log(selectedLesson);
 
   return courseLessons && selectedLesson ? (
     <div style={{ display: "flex", justifyContent: "center" }}>
@@ -95,13 +88,7 @@ export default function CourseLessons(props: any) {
             onClick={async () => {
               try {
                 await axios.put(
-                  `${BACKEND_URL}:${PORT}/users/courses/${course._id}/${selectedLesson._id}`,
-                  {},
-                  {
-                    headers: {
-                      Authorization: localStorage.getItem("token"),
-                    },
-                  }
+                  `${BACKEND_URL}:${PORT}/api/users/courses/${course._id}/${selectedLesson._id}`
                 );
                 setCompletedLessons(
                   new Set([...completedLessons, selectedLesson._id])

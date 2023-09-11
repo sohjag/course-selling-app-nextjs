@@ -32,7 +32,11 @@ const lessonSchema = new mongoose.Schema({
   lessonLink: String,
 });
 
-export const Users = mongoose.model("Users", userSchema);
-export const Admins = mongoose.model("Admins", adminSchema);
-export const Courses = mongoose.model("Courses", courseSchema);
-export const Lessons = mongoose.model("Lessons", lessonSchema);
+const Users = mongoose.models.Users || mongoose.model("Users", userSchema);
+const Admins = mongoose.models.Admins || mongoose.model("Admins", adminSchema);
+const Courses =
+  mongoose.models.Courses || mongoose.model("Courses", courseSchema);
+const Lessons =
+  mongoose.models.Lessons || mongoose.model("Lessons", lessonSchema);
+
+export { Users, Admins, Courses, Lessons };

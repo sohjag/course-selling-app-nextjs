@@ -81,7 +81,6 @@ export default function Appbar() {
                 variant="contained"
                 onClick={() => {
                   // window.location = "/login";
-                  localStorage.setItem("token", "");
                   setUser({
                     isLoading: false,
                     userEmail: null,
@@ -127,7 +126,6 @@ export default function Appbar() {
               variant="contained"
               onClick={() => {
                 // window.location = "/login";
-                localStorage.setItem("token", "");
                 setUser({
                   isLoading: false,
                   userEmail: null,

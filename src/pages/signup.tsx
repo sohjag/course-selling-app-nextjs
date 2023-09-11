@@ -13,8 +13,8 @@ import { useSetRecoilState } from "recoil";
 function Signup() {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
-  const router = useRouter()
-  const setUser = useSetRecoilState(userDetail)
+  const router = useRouter();
+  const setUser = useSetRecoilState(userDetail);
 
   return (
     <div
@@ -60,7 +60,7 @@ function Signup() {
             onClick={() => {
               axios({
                 method: "post",
-                url: `${BACKEND_URL}:${PORT}/users/signup`,
+                url: `${BACKEND_URL}:${PORT}/api/usersignup`,
                 headers: { "Content-Type": "application/json" },
                 data: { username, password },
               })
@@ -68,11 +68,11 @@ function Signup() {
                   if (res.status === 200) {
                     localStorage.setItem("token", "Bearer " + res.data.token);
                     setUser({
-                        isLoading: false,
-                        userEmail: username,
-                        role:"user"
-                    })
-                    router.push("/")
+                      isLoading: false,
+                      userEmail: username,
+                      role: "user",
+                    });
+                    router.push("/");
                   } else {
                     alert("error in sign up");
                   }

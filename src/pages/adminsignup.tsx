@@ -13,8 +13,8 @@ import { useSetRecoilState } from "recoil";
 function AdminSignup() {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
-  const setUser = useSetRecoilState(userDetail)
-  const router = useRouter()
+  const setUser = useSetRecoilState(userDetail);
+  const router = useRouter();
 
   return (
     <div
@@ -62,19 +62,18 @@ function AdminSignup() {
             onClick={() => {
               axios({
                 method: "post",
-                url: `${BACKEND_URL}:${PORT}/admin/signup`,
+                url: `${BACKEND_URL}:${PORT}/api/adminsignup`,
                 headers: { "Content-Type": "application/json" },
                 data: { username, password },
               })
                 .then((res) => {
                   if (res.status === 200) {
-                    localStorage.setItem("token", "Bearer " + res.data.token);
                     setUser({
-                        isLoading:false,
-                        userEmail:username,
-                        role:"admin"
-                    })
-                    router.push("/")
+                      isLoading: false,
+                      userEmail: username,
+                      role: "admin",
+                    });
+                    router.push("/");
                   } else {
                     alert("error in sign up");
                   }
